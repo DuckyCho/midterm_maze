@@ -1,0 +1,32 @@
+package maze.main;
+
+
+import maze.findway.FindWayDuo;
+import maze.findway.FindWaySolo;
+import maze.findway.IFindWay;
+import maze.maze.Maze;
+import maze.utils.Defines;
+
+public class MazeMain {
+
+	public static void main(String[] args) {
+		
+		Maze.printMaze();
+	
+		
+		//Properties�뙆�씪�쓽 howManyFinder媛믪쓣 1濡� �뻽�쓣寃쎌슦
+		//�떛湲��뒪�젅�뱶
+		if(Defines.theNumberOfFinder == 1 ){
+			IFindWay f1 = new FindWaySolo();
+			f1.startFindWay();
+		}
+		//Properties�뙆�씪�쓽 howManyFinder媛믪쓣 2濡� �뻽�쓣寃쎌슦
+		//硫��떚�뒪�젅�뱶
+		else{
+			IFindWay f2 = new FindWayDuo();
+			f2.startFindWay();
+		}
+
+	}
+
+}

@@ -1,6 +1,5 @@
 package maze.findway;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import maze.finder.*;
@@ -9,25 +8,21 @@ import maze.utils.Coordinate;
 import maze.utils.Defines;
 
 public class FindWaySolo implements IFindWay {
-	//싱글 쓰레드로 미로찾기
-	//Finder를 한명만 생성
+	//�떛湲� �벐�젅�뱶濡� 誘몃줈李얘린
+	//Finder瑜� �븳紐낅쭔 �깮�꽦
 	
 	public Finder finderSolo;
 
 	
 	public FindWaySolo(){
-		try {
-			Defines.setProperties();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	
+
 		finderSolo = new Finder(Defines.inorder,Maze.getMazeEntrance(),Maze.getMazeExit());
 		
 	}
 	
 	@Override
 	public void startFindWay() {
+		System.out.println("****Find way by using one Finder****");
 		finderSolo.run();
 		this.printWay();
 	}

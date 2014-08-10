@@ -45,17 +45,30 @@ public class Defines {
 	public static int inverse;
 	public static int searchDirection;
 	public static int theNumberOfFinder;
+	public static boolean operationComparisonMode;
 	
-	//searchDirection파일을 읽어들여 property를 설정
-	//invsere, searchDirection, movePos어레이를 설정값에 따라 변경
-	public static void setProperties() throws IOException{
+	private static Defines d1 = new Defines();
+	
+	private Defines(){
+		try {
+			Defines.setProperties();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	//searchDirection�뙆�씪�쓣 �씫�뼱�뱾�뿬 property瑜� �꽕�젙
+	//invsere, searchDirection, movePos�뼱�젅�씠瑜� �꽕�젙媛믪뿉 �뵲�씪 蹂�寃�
+	private static void setProperties() throws IOException{
 				
 		Properties props = new Properties();
 		FileInputStream in = new FileInputStream("Properties");
 		props.load(in);
+		operationComparisonMode = Boolean.valueOf(props.getProperty("operationComparisonMode"));
 		theNumberOfFinder = Integer.valueOf(props.getProperty("howManyFinder"));
 		searchDirection = Integer.valueOf(props.getProperty("searchDirection"));
-		inverse = searchDirection;
+		
 		
 		if(searchDirection == 4){
 			movePos = new ArrayList<Coordinate>(); 

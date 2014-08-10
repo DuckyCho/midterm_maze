@@ -1,6 +1,5 @@
 package maze.main;
 
-import java.io.IOException;
 
 import maze.findway.FindWayDuo;
 import maze.findway.FindWaySolo;
@@ -12,26 +11,36 @@ public class MazeMain {
 
 	public static void main(String[] args) {
 		
-		Maze.printMaze();
+			Maze.printMaze();
+			
+			IFindWay f1;
+			IFindWay f2;
+			
+			if(Defines.operationComparisonMode){
+
+				f1 = new FindWaySolo();
+				f1.startFindWay();
+				
+				Maze.resetMaze();
 		
-		try {
-			Defines.setProperties();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		//Properties파일의 howManyFinder값을 1로 했을경우
-		//싱글스레드
-		if(Defines.theNumberOfFinder == 1 ){
-			IFindWay f1 = new FindWaySolo();
-			f1.startFindWay();
-		}
-		//Properties파일의 howManyFinder값을 2로 했을경우
-		//멀티스레드
-		else{
-			IFindWay f2 = new FindWayDuo();
-			f2.startFindWay();
-		}
+				f2 = new FindWayDuo();
+				f2.startFindWay();
+
+			}
+			
+			else{
+				if(Defines.theNumberOfFinder == 1){
+					f1 = new FindWaySolo();
+					f1.startFindWay();
+				}
+				else{
+					f2 = new FindWayDuo();
+					f2.startFindWay();
+				}
+			}
+			
+			
+				
 
 	}
 

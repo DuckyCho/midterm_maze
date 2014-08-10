@@ -21,8 +21,8 @@ public class Finder implements Runnable{
 	
 
 
-	//Finder는 길을 찾는 역할. fHistory에서 여태까지 갔던길을 stack으로 관리한다. visitorder는 시계방향으로 탐색할지,  시계반대방향으로 길을 탐색할지 결정한다.
-	//FinderId는 쓰레드로 두명돌릴때 둘이 가본곳을 구별할때 사용한다. startpos는 이 finder가 길찾기 탐색을 시작할 위치, endpos는 maze의 출
+	//Finder�뒗 湲몄쓣 李얜뒗 �뿭�븷. fHistory�뿉�꽌 �뿬�깭源뚯� 媛붾뜕湲몄쓣 stack�쑝濡� 愿�由ы븳�떎. visitorder�뒗 �떆怨꾨갑�뼢�쑝濡� �깘�깋�븷吏�,  �떆怨꾨컲��諛⑺뼢�쑝濡� 湲몄쓣 �깘�깋�븷吏� 寃곗젙�븳�떎.
+	//FinderId�뒗 �벐�젅�뱶濡� �몢紐낅룎由대븣 �몮�씠 媛�蹂멸납�쓣 援щ퀎�븷�븣 �궗�슜�븳�떎. startpos�뒗 �씠 finder媛� 湲몄갼湲� �깘�깋�쓣 �떆�옉�븷 �쐞移�, endpos�뒗 maze�쓽 異�
 	public Finder(int visitOrder, Coordinate startPos, Coordinate endPos){
 		this.fHistory = new FinderHistory();
 		this.visitOrder = visitOrder;
@@ -51,14 +51,14 @@ public class Finder implements Runnable{
 				Maze.setMazeLocationInfo(currentPos, this.finderId);
 				nextPos = currentPos.addCoordinate(Defines.movePos.get(nextDirection));
 	
-				//움직일 다음 좌표의 값이 벽보다 큰 값이면서(1보다 큰 값이면서), finder의 ID가 아닐때는 다른 쓰레드에 의해 찾아진 길이므로 break; 
+				//��吏곸씪 �떎�쓬 醫뚰몴�쓽 媛믪씠 踰쎈낫�떎 �겙 媛믪씠硫댁꽌(1蹂대떎 �겙 媛믪씠硫댁꽌), finder�쓽 ID媛� �븘�땺�븣�뒗 �떎瑜� �벐�젅�뱶�뿉 �쓽�빐 李얠븘吏� 湲몄씠誘�濡� break; 
 				if(Maze.getMazeLocationInfo(nextPos) > Defines.wall && Maze.getMazeLocationInfo(nextPos)!= this.finderId)
 					break;
 				
 				
 				else{
-					//다음 움직일 방향의 값이 searchDirection(4방향 탐색의 경우 4, 8방향 탐색의 경우 8)과 같을 경우, 그 좌표에 탐색이 끝난것이므로 이전위치로 되돌아 가야한다.
-					//따라서 위치를 pop하여 이전의 장소를 currentPos로 변경해야함
+					//�떎�쓬 ��吏곸씪 諛⑺뼢�쓽 媛믪씠 searchDirection(4諛⑺뼢 �깘�깋�쓽 寃쎌슦 4, 8諛⑺뼢 �깘�깋�쓽 寃쎌슦 8)怨� 媛숈쓣 寃쎌슦, 洹� 醫뚰몴�뿉 �깘�깋�씠 �걹�궃寃껋씠誘�濡� �씠�쟾�쐞移섎줈 �릺�룎�븘 媛��빞�븳�떎.
+					//�뵲�씪�꽌 �쐞移섎�� pop�븯�뿬 �씠�쟾�쓽 �옣�냼瑜� currentPos濡� 蹂�寃쏀빐�빞�븿
 					if (nextDirection-visitOrder == Defines.searchDirection) {
 						tmp = fHistory.popLocation();
 						while(tmp.getDirection() == Defines.searchDirection)
@@ -69,14 +69,14 @@ public class Finder implements Runnable{
 						nextDirection = tmp.getDirection()+visitOrder;
 					}
 					
-					//다음 움직일 좌표가 valid하면서(0 <= X좌표, Y좌표 < 8), 비어있는 경우(0일 경우)에는 현재위치를 푸쉬하고, 다음 좌표로 이동하고 이반복문 break;
+					//�떎�쓬 ��吏곸씪 醫뚰몴媛� valid�븯硫댁꽌(0 <= X醫뚰몴, Y醫뚰몴 < 8), 鍮꾩뼱�엳�뒗 寃쎌슦(0�씪 寃쎌슦)�뿉�뒗 �쁽�옱�쐞移섎�� �뫖�돩�븯怨�, �떎�쓬 醫뚰몴濡� �씠�룞�븯怨� �씠諛섎났臾� break;
 					else if(Maze.isValidLocation(nextPos) && Maze.getMazeLocationInfo(nextPos) == Defines.empty){
 						fHistory.pushLocation(Coordinate.toCoordianteWithDirections(currentPos,++nextDirection));
 						currentPos = new Coordinate(nextPos);
 						break;
 					}
 					
-					//위에중 어떠한 것에도 해당하지 않는 경우는 다음 방향으로 탐색을 하는 것이므로 nextDirection의 값을 1증
+					//�쐞�뿉以� �뼱�뼚�븳 寃껋뿉�룄 �빐�떦�븯吏� �븡�뒗 寃쎌슦�뒗 �떎�쓬 諛⑺뼢�쑝濡� �깘�깋�쓣 �븯�뒗 寃껋씠誘�濡� nextDirection�쓽 媛믪쓣 1利�
 					else{
 						nextDirection++;
 					}
@@ -84,8 +84,8 @@ public class Finder implements Runnable{
 				}
 			}
 				
-		//위의 반복문을 출구를 찾거나, 다른 쓰레드가 검색한 곳에 도달할 때까지 반 
-		//while조건을 체크하는 시점에서 nextPos와 currentPos는 같다. 
+		//�쐞�쓽 諛섎났臾몄쓣 異쒓뎄瑜� 李얘굅�굹, �떎瑜� �벐�젅�뱶媛� 寃��깋�븳 怨녹뿉 �룄�떖�븷 �븣源뚯� 諛� 
+		//while議곌굔�쓣 泥댄겕�븯�뒗 �떆�젏�뿉�꽌 nextPos�� currentPos�뒗 媛숇떎. 
 		}while(!nextPos.equals(Maze.getMazeExit()) && !(Maze.getMazeLocationInfo(nextPos) > Defines.wall && Maze.getMazeLocationInfo(nextPos)!= this.finderId) );
 			
 		fHistory.pushLocation(Coordinate.toCoordianteWithDirections(currentPos,++nextDirection));
@@ -97,7 +97,7 @@ public class Finder implements Runnable{
 	@Override
 	public String toString() {
 		StringBuilder finderInfo = new StringBuilder();
-		finderInfo.append(String.format("ThreadName : %s\n시작시간 : %s\n소요시간 : %s\n스택push횟수 : %s\n",Thread.currentThread().getName(), Long.toString(startTime),	(System.currentTimeMillis()-startTime), Integer.toString(this.fHistory.stackInputCount)));
+		finderInfo.append(String.format("ThreadName : %s\nStartTime : %s\nOperationTime : %s\nTotalNumsOfStackPushed : %s\n",Thread.currentThread().getName(), Long.toString(startTime),	(System.currentTimeMillis()-startTime), Integer.toString(this.fHistory.stackInputCount)));
 		
 		return finderInfo.toString();
 		

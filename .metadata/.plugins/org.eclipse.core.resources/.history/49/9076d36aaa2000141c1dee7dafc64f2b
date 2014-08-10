@@ -1,0 +1,38 @@
+package maze.main;
+
+import java.io.IOException;
+
+import maze.findway.FindWayDuo;
+import maze.findway.FindWaySolo;
+import maze.findway.IFindWay;
+import maze.maze.Maze;
+import maze.utils.Defines;
+
+public class MazeMain {
+
+	public static void main(String[] args) {
+		
+		Maze.printMaze();
+		
+		try {
+			Defines.setProperties();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		//Properties파일의 howManyFinder값을 1로 했을경우
+		//싱글스레드
+		if(Defines.theNumberOfFinder == 1 ){
+			IFindWay f1 = new FindWaySolo();
+			f1.startFindWay();
+		}
+		//Properties파일의 howManyFinder값을 2로 했을경우
+		//멀티스레드
+		else{
+			IFindWay f2 = new FindWayDuo();
+			f2.startFindWay();
+		}
+
+	}
+
+}

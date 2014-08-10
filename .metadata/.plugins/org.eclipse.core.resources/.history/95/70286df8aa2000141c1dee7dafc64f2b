@@ -1,0 +1,44 @@
+package maze.findway;
+
+import java.util.ArrayList;
+
+import maze.finder.*;
+import maze.maze.Maze;
+import maze.utils.Coordinate;
+import maze.utils.Defines;
+
+public class FindWaySolo implements IFindWay {
+	//�떛湲� �벐�젅�뱶濡� 誘몃줈李얘린
+	//Finder瑜� �븳紐낅쭔 �깮�꽦
+	
+	public Finder finderSolo;
+
+	
+	public FindWaySolo(){
+
+		finderSolo = new Finder(Defines.inorder,Maze.getMazeEntrance(),Maze.getMazeExit());
+		
+	}
+	
+	@Override
+	public void startFindWay() {
+		System.out.println("Find way by using two Finders");
+		finderSolo.run();
+		this.printWay();
+	}
+
+	@Override
+	public void printWay() {
+		ArrayList<Coordinate> finderWay = new ArrayList<Coordinate>();
+		
+		while(finderSolo.fHistory.top > 0 )
+			finderWay.add(finderSolo.fHistory.popLocation());
+	
+		
+		for(int i = finderWay.size()-1 ; i >= 0 ; i--)
+			System.out.println(finderWay.get(i));
+	}
+	
+	
+
+}

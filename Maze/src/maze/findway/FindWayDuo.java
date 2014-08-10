@@ -1,8 +1,6 @@
 package maze.findway;
 
-import java.io.IOException;
 import java.util.ArrayList;
-
 import maze.finder.Finder;
 import maze.maze.Maze;
 import maze.utils.Coordinate;
@@ -16,12 +14,7 @@ public class FindWayDuo implements IFindWay {
 
 	
 	public FindWayDuo(){
-		try {
-			Defines.setProperties();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
+		System.out.println();		
 		finderDuo_1 = new Finder(Defines.inorder,Maze.getMazeEntrance(),Maze.getMazeExit());
 		finderDuo_2 = new Finder(Defines.inverse,Maze.getMazeExit(),Maze.getMazeEntrance());
 		
@@ -31,7 +24,7 @@ public class FindWayDuo implements IFindWay {
 	
 	@Override
 	public void startFindWay() {
-		
+		System.out.println("****Find way by using two Finders****");
 		Runnable f1 = finderDuo_1;
 		Runnable f2 = finderDuo_2;
 		
