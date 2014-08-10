@@ -1,0 +1,73 @@
+package maze.utils;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
+
+public class Defines {
+	/*are used when maze is built*/
+	public static final int wall = 1;
+	public static final int empty = 0;
+	public static final int unvalid =  -1;
+	public static final int basicMazeSize = 8;
+	public static final boolean setPreset = true;
+	public static final int[][] wallPreset = {
+		{0,1,1,1,0,1,1,1},
+		{0,0,0,1,0,0,0,0},
+		{1,1,0,0,0,1,0,1},
+		{1,1,0,1,1,1,0,1},
+		{1,0,0,1,0,0,0,0},
+		{0,1,1,1,0,1,1,1},
+		{1,0,1,1,0,0,0,0},
+		{0,1,1,0,1,1,1,0}
+		};
+	
+	
+	/*directions*/
+	public static final int N = 0;
+	public static final int NE = 1;
+	public static final int E = 2;
+	public static final int ES = 3;
+	public static final int S = 4;
+	public static final int SW = 5;
+	public static final int W = 6;
+	public static final int WN = 7;
+	public static final int NN = 8;
+	
+	
+	
+	public static final int[] movePosX_4way = {0,1,0,-1,   0,-1,0,1};
+	public static final int[] movePosY_4way ={1,0,-1,0,   1,0,-1,1};
+	public static final int[] movePosX_8way = {0,1,1,1,0,-1,-1,-1,    0,-1,-1,-1,0,1,1,1};
+	public static final int[] movePosY_8way = {1,1,0,-1,-1,-1,0,1,    1,1,0,-1,-1,-1,0,1};
+	
+	/*are used when explore the maze*/
+	public static int[] movePosX;
+	public static int[] movePosY;
+	public static final int inorder = 0;
+	public static int inverse;
+	
+	
+	
+	public static int searchDirection;
+	
+	public static void setSearchDirection() throws IOException{
+		Properties props = new Properties();
+		FileInputStream in = new FileInputStream("searchDirection");
+		props.load(in);
+		searchDirection = Integer.valueOf(props.getProperty("searchDirection"));
+		inverse = searchDirection;
+		
+		if(searchDirection == 4){
+			movePosX = Defines.movePosX_4way;
+			movePosY = Defines.movePosY_8way; 
+		}
+		
+		if(searchDirection == 8){
+			movePosX = Defines.movePosX_8way;
+			movePosY = Defines.movePosY_8way;
+		}
+	}
+	
+	
+}

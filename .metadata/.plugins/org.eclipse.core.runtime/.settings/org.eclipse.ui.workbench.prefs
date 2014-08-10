@@ -1,0 +1,4 @@
+ColorsAndFontsPreferencePage.expandedCategories=Torg.eclipse.ui.workbenchMisc\tTorg.eclipse.team.cvs.ui.fontsandcolors\tTorg.eclipse.debug.ui.presentation\tTorg.eclipse.egit.ui.GitTheme\tTorg.eclipse.jdt.ui.presentation\tTorg.eclipse.ui.themes.CssTheme\tTorg.eclipse.wst.sse.ui\tTorg.eclipse.compare.contentmergeviewer.TextMergeViewer\tTorg.eclipse.ui.presentation.default
+ColorsAndFontsPreferencePage.selectedElement=COUTGOING_COLOR
+eclipse.preferences.version=1
+org.eclipse.jdt.ui.editors.textfont=1|Anonymous Pro|13.0|0|COCOA|1|AnonymousPro;

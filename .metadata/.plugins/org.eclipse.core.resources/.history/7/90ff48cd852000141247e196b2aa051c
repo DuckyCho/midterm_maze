@@ -1,0 +1,10 @@
+package maze.maze;
+
+import maze.utils.Coordinate;
+import maze.utils.Defines;
+
+public class MazeTest extends junit.framework.TestCase{
+
+	public void testCreate(){
+	}
+}

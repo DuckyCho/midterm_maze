@@ -1,0 +1,8 @@
+package maze.finder;
+
+public class FinderHistoryTest extends junit.framework.TestCase {
+
+	public void createTest(){
+		FinderHistory h1 = new FinderHistory();
+	}
+}

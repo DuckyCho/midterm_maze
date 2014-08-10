@@ -1,0 +1,31 @@
+package maze.maze;
+
+import maze.utils.Defines;
+
+public class Maze {
+	private static int[][] maze;
+	private static Coordinate entrance;
+	private static Coordinate exit;
+	private Maze m1 = new Maze();
+	
+	
+	private Maze(){
+		this.maze = new int[Defines.basicMazeSize][Defines.basicMazeSize];
+			for(int i = 0 ; i < Defines.basicMazeSize ; i++){
+				for(int j = 0 ; j< Defines.basicMazeSize ; j++){
+					this.maze[i][j] = Defines.wallPreset[i][j];
+				}
+			}
+	}
+		
+	
+	public static Coordinate getMazeEntrance(){
+		 return entrance;
+	}
+	
+	public static Coordinate getMazeExit(){
+		return exit;
+	}
+}	
+
+

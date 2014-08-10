@@ -1,0 +1,68 @@
+package maze.findway;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
+import maze.finder.Finder;
+import maze.maze.Maze;
+import maze.utils.Coordinate;
+import maze.utils.Defines;
+
+public class FindWayDuo implements IFindWay {
+	
+	
+	private static Finder finderDuo_1;
+	private static Finder finderDuo_2;
+
+	
+	public FindWayDuo(){
+		try {
+			Defines.setSearchDirection();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		finderDuo_1 = new Finder(Defines.inorder,Maze.getMazeEntrance(),Maze.getMazeExit());
+		finderDuo_2 = new Finder(Defines.inverse,Maze.getMazeExit(),Maze.getMazeEntrance());
+		
+	}
+	
+	
+	
+	@Override
+	public void startFindWay() {
+		
+		Runnable f1 = finderDuo_1;
+		Runnable f2 = finderDuo_2;
+		
+		Thread threadNo1 = new Thread(f1,"Finder 01");
+		Thread threadNo2 = new Thread(f2,"Finder 02");
+		
+		threadNo1.start();
+		threadNo2.start();
+		
+		try {
+			threadNo1.join();
+			threadNo2.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		printWay();
+	}
+
+	@Override
+	public void printWay() {
+		ArrayList<Coordinate> finder1Way = new ArrayList<Coordinate>();
+		
+		while(finderDuo_1.fHistory.top > 0 ){
+			finder1Way.add(finderDuo_1.fHistory.popLocation());
+			idx--;
+		}
+		
+		for(int i = finder1Way.size()-1 ; i >= 0 ; i--)
+			System.out.println(finder1Way.get(i));
+		while(finderDuo_2.fHistory.top > 0 )
+			System.out.println(finderDuo_2.fHistory.popLocation());
+		}		
+
+}

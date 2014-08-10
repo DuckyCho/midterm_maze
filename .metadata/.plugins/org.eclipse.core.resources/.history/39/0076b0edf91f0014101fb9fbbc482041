@@ -1,0 +1,8 @@
+package maze.finder;
+
+public class FinderTest extends junit.framework.TestCase {
+
+	public void testCreate(){
+		Finder f1 = new Finder();
+	}
+}

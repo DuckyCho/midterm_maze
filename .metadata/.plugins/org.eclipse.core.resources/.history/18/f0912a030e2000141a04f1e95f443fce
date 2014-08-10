@@ -1,0 +1,93 @@
+package maze.utils;
+
+
+public class Coordinate {
+	
+	private int X;
+	private int Y;
+	
+	public Coordinate(){
+		this.X = 0 ;
+		this.Y = 0 ;
+	}
+	
+	public Coordinate(int X, int Y){
+		this.X = X;
+		this.Y = Y;
+	}
+	
+	public Coordinate(Coordinate c1){
+		this.X = c1.getX();
+		this.Y = c1.getY();
+	}
+	
+	
+	public void setX(int X){
+		this.X = X;
+	}
+	
+	public int getX(){
+		return this.X;
+	}
+	
+	public void setY(int Y){
+		this.Y = Y;
+	}
+	
+	public int getY(){
+		return this.Y;
+	}
+	
+	public static CoordinateWithDirections toCoordianteWithDirections(Coordinate c1){
+		CoordinateWithDirections transfer = new CoordinateWithDirections(c1.getX(),c1.getY(),Defines.N);
+		
+		return transfer;
+	}
+	
+	public static CoordinateWithDirections toCoordianteWithDirections(Coordinate c1, int direction){
+		CoordinateWithDirections transfer = new CoordinateWithDirections(c1.getX(),c1.getY(),direction);
+		
+		return transfer;
+	}
+	
+	public Coordinate addCoordinate(Coordinate c1){
+		Coordinate addResult = new Coordinate(this.getX()+c1.getX(),this.getY()+c1.getY());
+		return addResult;
+		
+	}
+
+	public Coordinate clone() {
+		Coordinate cloned = new Coordinate(this.X,this.Y);
+		return cloned;
+	}
+
+	
+	
+	@Override
+	public int hashCode() {
+		int result = this.Y*10 + this.X;
+		return result;
+	}
+
+	
+	@Override
+	public boolean equals(Object obj) {
+		Coordinate c1;
+		boolean result = false;
+		
+		if(obj instanceof Coordinate){
+			
+			c1 = (Coordinate)obj;
+			if(this.X == c1.X && this.Y == c1.Y){
+				result = true;
+			}
+		}
+		else{
+			result = false;
+		}
+		
+		return result;
+	}
+
+	
+}

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="maze.maze.MazeFloor"/>
+<fullyQualifiedTypeName name="java.util.Random"/>
+<fullyQualifiedTypeName name="java.util.Collection"/>
+<fullyQualifiedTypeName name="maze.maze.MazeInfo"/>
+<fullyQualifiedTypeName name="maze.finder.FinderHistory"/>
+<fullyQualifiedTypeName name="maze.maze.Coordinate"/>
+<fullyQualifiedTypeName name="maze.maze.CoordinateWithDirections"/>
+<fullyQualifiedTypeName name="maze.utils.CoordinateWithDirections"/>
+<fullyQualifiedTypeName name="java.lang.System"/>
+<fullyQualifiedTypeName name="junit.framework.TestCase"/>
+<fullyQualifiedTypeName name="maze.finder.Finder"/>
+<fullyQualifiedTypeName name="java.lang.Runnable"/>
+<fullyQualifiedTypeName name="maze.findway.FindWayDuo"/>
+<fullyQualifiedTypeName name="maze.findway.IFindWay"/>
+<fullyQualifiedTypeName name="maze.findway.FindWaySolo"/>
+<fullyQualifiedTypeName name="java.lang.Thread"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="maze.utils.Coordinate"/>
+<fullyQualifiedTypeName name="java.lang.Integer"/>
+<fullyQualifiedTypeName name="java.lang.StringBuilder"/>
+<fullyQualifiedTypeName name="maze.utils.Defines"/>
+<fullyQualifiedTypeName name="maze.maze.Maze"/>
+</qualifiedTypeNameHistroy>

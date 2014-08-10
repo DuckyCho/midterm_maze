@@ -1,0 +1,15 @@
+package maze.main;
+
+import maze.findway.FindWayDuo;
+
+public class MazeMain {
+
+	public static void main(String[] args) {
+		IFindWay f2 = FindWayDuo.getInstance();
+		System.out.println("!!!!!123123");
+		f2.startFindWay();
+		f2.printWay();
+
+	}
+
+}

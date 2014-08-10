@@ -1,0 +1,11 @@
+package maze.maze;
+
+public class MazeInfo {
+
+	private Coordinate mazeEntrance;
+	private Coordinate mazeExit;
+	
+	public MazeInfo(Maze m1){
+		
+	}
+}

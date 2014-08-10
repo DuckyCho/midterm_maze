@@ -1,0 +1,119 @@
+package maze.finder;
+
+
+
+import maze.maze.Maze;
+import maze.utils.Coordinate;
+import maze.utils.CoordinateWithDirections;
+import maze.utils.Defines;
+
+
+public class Finder implements Runnable{
+
+	
+	public static int finderIdConstructor = Defines.finderIdConstructor;
+	public FinderHistory fHistory;
+	public int visitOrder;
+	public int finderId;
+	public Coordinate startPos;
+	public Coordinate endPos;
+
+	//Finder는 길을 찾는 역할. fHistory에서 여태까지 갔던길을 stack으로 관리한다. visitorder는 시계방향으로 탐색할지,  시계반대방향으로 길을 탐색할지 결정한다.
+	//FinderId는 쓰레드로 두명돌릴때 둘이 가본곳을 구별할때 사용한다. startpos는 이 finder가 길찾기 탐색을 시작할 위치, endpos는 maze의 출
+	public Finder(int visitOrder, Coordinate startPos, Coordinate endPos){
+		this.fHistory = new FinderHistory();
+		this.visitOrder = visitOrder;
+		this.finderId = Finder.finderIdConstructor++;
+		this.startPos = startPos;
+		this.endPos = endPos;
+	}
+	
+	
+	
+	public void startFindWay(){
+		
+		Coordinate currentPos = this.startPos.clone();
+		Coordinate nextPos = null;
+		CoordinateWithDirections tmp;
+		int nextDirection;
+		
+		do {
+			
+			nextDirection = Defines.N+visitOrder;
+			
+			
+			while(nextDirection-visitOrder <= Defines.searchDirection){
+
+				Maze.setMazeLocationInfo(currentPos, this.finderId);
+				nextPos = currentPos.addCoordinate(Defines.movePos.get(nextDirection));
+	
+				//움직일 다음 좌표의 값이 벽보다 큰 값이면서(1보다 큰 값이면서), finder의 ID가 아닐때는 다른 쓰레드에 의해 찾아진 길이므로 break; 
+				if(Maze.getMazeLocationInfo(nextPos) > Defines.wall && Maze.getMazeLocationInfo(nextPos)!= this.finderId)
+					break;
+				
+				
+				else{
+					//다음 움직일 방향의 값이 searchDirection(4방향 탐색의 경우 4, 8방향 탐색의 경우 8)과 같을 경우, 그 좌표에 탐색이 끝난것이므로 이전위치로 되돌아 가야한다.
+					//따라서 위치를 pop하여 이전의 장소를 currentPos로 변경해야함
+					if (nextDirection-visitOrder == Defines.searchDirection) {
+						tmp = fHistory.popLocation();
+						while(tmp.getDirection() == Defines.searchDirection)
+							tmp = fHistory.popLocation();
+					
+						Maze.setMazeLocationInfo(currentPos, Defines.empty);
+						currentPos = new Coordinate(tmp);
+						nextDirection = tmp.getDirection()+visitOrder;
+					}
+					
+					//다음 움직일 좌표가 valid하면서(0 <= X좌표, Y좌표 < 8), 비어있는 경우(0일 경우)에는 현재위치를 푸쉬하고, 다음 좌표로 이동하고 이반복문 break;
+					else if(Maze.isValidLocation(nextPos) && Maze.getMazeLocationInfo(nextPos) == Defines.empty){
+						fHistory.pushLocation(Coordinate.toCoordianteWithDirections(currentPos,++nextDirection));
+						currentPos = new Coordinate(nextPos);
+						break;
+					}
+					
+					//위에중 어떠한 것에도 해당하지 않는 경우는 다음 방향으로 탐색을 하는 것이므로 nextDirection의 값을 1증
+					else{
+						nextDirection++;
+					}
+		
+				}
+			}
+				
+		//위의 반복문을 출구를 찾거나, 다른 쓰레드가 검색한 곳에 도달할 때까지 반 
+		//while조건을 체크하는 시점에서 nextPos와 currentPos는 같다. 
+		}while(!nextPos.equals(Maze.getMazeExit()) && !(Maze.getMazeLocationInfo(nextPos) > Defines.wall && Maze.getMazeLocationInfo(nextPos)!= this.finderId) );
+			
+		fHistory.pushLocation(Coordinate.toCoordianteWithDirections(currentPos,++nextDirection));
+	}
+	
+	
+
+	@Override
+	public String toString() {
+		StringBuilder way = new StringBuilder();
+		String result;
+		for(int i = this.fHistory.top ; i >= 1 ; i--){
+			way.append(String.format("%d번째 : %d, %d\n",this.fHistory.top-i,this.fHistory.getStackElement(i-1).getX(),this.fHistory.getStackElement(i-1).getY()));
+		}
+		
+		result = new String(way);
+		return result;
+		
+		
+	}
+
+
+
+	@Override
+	public void run() {
+		this.startFindWay();
+		while(this.fHistory.top == 0 ){
+			
+		}
+	}
+	
+	
+
+	
+}

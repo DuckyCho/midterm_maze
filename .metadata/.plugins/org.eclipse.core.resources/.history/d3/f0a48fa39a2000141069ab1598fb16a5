@@ -1,0 +1,34 @@
+package maze.main;
+
+import java.io.IOException;
+
+import maze.findway.FindWayDuo;
+import maze.findway.FindWaySolo;
+import maze.findway.IFindWay;
+import maze.utils.Defines;
+
+public class MazeMain {
+
+	public static void main(String[] args) {
+		try {
+			Defines.setSearchDirection();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		if(Defines.theNumberOfFinder == 1 ){
+			IFindWay f1 = new FindWaySolo();
+			
+			
+			f1.startFindWay();
+			f1.printWay();
+		}
+				
+		
+		
+		IFindWay f2 = new FindWayDuo();
+		f2.startFindWay();
+		
+
+	}
+
+}

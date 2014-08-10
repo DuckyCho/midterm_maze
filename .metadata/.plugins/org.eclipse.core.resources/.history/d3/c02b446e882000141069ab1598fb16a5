@@ -1,0 +1,37 @@
+package maze.findway;
+
+import java.io.IOException;
+import maze.finder.*;
+import maze.maze.Maze;
+import maze.utils.Defines;
+
+public class FindWaySolo implements IFindWay {
+	//싱글 쓰레드로 미로찾기
+	//Finder를 한명만 생성
+	
+	public static Finder finderSolo;
+
+	
+	public FindWaySolo(){
+		try {
+			Defines.setSearchDirection();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	
+		finderSolo = new Finder(Defines.inorder,Maze.getMazeEntrance(),Maze.getMazeExit());
+		
+	}
+	
+	@Override
+	public void startFindWay() {
+		finderSolo.startFindWay();
+	}
+
+	@Override
+	public void printWay() {
+		while(finderSolo.fHistory.top > 0)
+			System.out.println(finderSolo.fHistory.popLocation());
+	}
+
+}

@@ -1,0 +1,52 @@
+package maze.maze;
+
+import maze.utils.Defines;
+
+public class Maze {
+	private static int[][] maze;
+	private static Coordinate entrance;
+	private static Coordinate exit;
+	private static Maze m1 = new Maze();
+	
+	
+	private Maze(){
+		Maze.maze = new int[Defines.basicMazeSize][Defines.basicMazeSize];
+			for(int i = 0 ; i < Defines.basicMazeSize ; i++){
+				for(int j = 0 ; j< Defines.basicMazeSize ; j++){
+					Maze.maze[i][j] = Defines.wallPreset[i][j];
+				}
+			}
+	}
+		
+	public static Coordinate getMazeEntrance(){
+		 return Maze.entrance;
+	}
+	
+	public static Coordinate getMazeExit(){
+		return Maze.exit;
+	}
+	
+	public static Maze getInstance(){
+		return Maze.m1;
+	}
+	
+	public static int getMazeLocationInfo(Coordinate location){
+		int result;
+		if()
+		
+		
+		return Maze.maze[location.getY()][location.getX()];
+	}
+	
+	public static boolean isValidLocation(Coordinate location){
+		boolean result = false;
+		if(location.getX() < Defines.basicMazeSize && location.getX() >= 0 && location.getY() < Defines.basicMazeSize && location.getY() >= 0)
+			result = true;
+		else
+			result = false;
+		
+		return result;
+	}
+}	
+
+

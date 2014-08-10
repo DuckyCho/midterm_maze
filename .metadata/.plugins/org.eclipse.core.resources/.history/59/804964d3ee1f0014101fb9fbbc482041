@@ -1,0 +1,12 @@
+package maze.utils;
+
+import java.io.IOException;
+
+public class DefinesTest extends junit.framework.TestCase {
+
+	public void testCreate(){
+		Defines.searchDirection();
+	
+		
+	}
+}

@@ -1,0 +1,52 @@
+package maze.finder;
+
+import java.util.ArrayList;
+
+import maze.maze.Coordinate;
+import maze.maze.CoordinateWithDirections;
+import maze.maze.Maze;
+
+
+
+public class FinderHistory {
+	public int top = 0;
+	public ArrayList<CoordinateWithDirections> alreadyVisited;
+	public Coordinate mazeEntrance;
+	public Coordinate mazeExit;
+	
+	
+	public FinderHistory(Maze m1){
+		top = 0;
+		alreadyVisited = new ArrayList<CoordinateWithDirections>();
+		mazeEntrance = m1.getMazeEntrance();
+		mazeExit = m1.getMazeExit();
+	}
+	
+	
+	public void pushLocation(Coordinate visited){
+		
+		if(visited instanceof CoordinateWithDirections){
+			alreadyVisited.add((CoordinateWithDirections)visited);
+			top++;
+		}
+		else{
+			alreadyVisited.add(Coordinate.toCoordianteWithDirections(visited));
+			top++;
+		}
+	}
+	
+	
+	public CoordinateWithDirections popLocation(){
+		CoordinateWithDirections previousLocation = this.alreadyVisited.get(top-1).clone();
+		
+		alreadyVisited.remove(top-1);
+		top--;
+		return previousLocation;
+	}
+	
+	
+	public boolean isEmpty(){
+		return this.alreadyVisited.isEmpty();
+	}
+
+}

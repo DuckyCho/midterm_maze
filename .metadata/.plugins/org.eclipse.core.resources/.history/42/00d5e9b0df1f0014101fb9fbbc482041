@@ -1,0 +1,13 @@
+package maze.maze;
+
+public class MazeInfo {
+
+	private Coordinate mazeEntrance;
+	private Coordinate mazeExit;
+	
+	public MazeInfo(Maze m1){
+		this.mazeEntrance = m1.getMazeEntrance();
+		this.mazeExit = m1.getMazeExit();
+		
+	}
+}

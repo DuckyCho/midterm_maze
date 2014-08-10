@@ -1,0 +1,26 @@
+package maze.finder;
+
+import maze.maze.Maze;
+import maze.utils.Coordinate;
+import maze.utils.CoordinateWithDirections;
+import maze.utils.Defines;
+
+
+public class FinderInfoTest extends junit.framework.TestCase {
+
+	public void testCreate(){
+		
+		FinderHistory h1 = new FinderHistory();
+		Coordinate c1 = new Coordinate(0,0);
+		Coordinate c2 = new Coordinate(1,1);
+		Coordinate c3 = new Coordinate(3,3);
+		CoordinateWithDirections c4 = new CoordinateWithDirections(4, 4, Defines.WN);
+		
+		CoordinateWithDirections c5;
+		Coordinate c6;
+		
+		
+		
+	}
+	
+}

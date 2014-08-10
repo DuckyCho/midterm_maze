@@ -1,0 +1,10 @@
+package maze.maze;
+
+public class MazeFloorTest extends junit.framework.TestCase {
+
+	public void testCreate(){
+		MazeFloor m1 = new MazeFloor(10);
+		
+		assertEquals(0, m1.floor[5][4]);
+	}
+}

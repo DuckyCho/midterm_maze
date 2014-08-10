@@ -1,0 +1,10 @@
+package maze.findway;
+
+public class FindWayDuoTest extends junit.framework.TestCase {
+	public void testCreate(){
+		FindWayDuo f1 = FindWayDuo.getInstance();
+		
+		f1.startFindWay();
+		//f1.printWay();
+	}
+}

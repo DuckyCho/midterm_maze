@@ -1,0 +1,24 @@
+package maze.finder;
+
+import java.io.IOException;
+
+import maze.maze.Maze;
+import maze.utils.Coordinate;
+import maze.utils.Defines;
+
+public class FinderTest extends junit.framework.TestCase {
+
+	public void testCreate(){
+		try {
+			Defines.setSearchDirection();
+		} catch (IOException e) {
+			
+			
+		}
+		Finder f1 = new Finder(Defines.inorder,Maze.getMazeEntrance(),Maze.getMazeExit());
+		f1.startFindWay();
+		
+		assertEquals(new Coordinate(7,7).getX(), f1.fHistory.popLocation().getX());
+		assertEquals(new Coordinate(7,7).getY(), f1.fHistory.popLocation().getY());
+	}
+}

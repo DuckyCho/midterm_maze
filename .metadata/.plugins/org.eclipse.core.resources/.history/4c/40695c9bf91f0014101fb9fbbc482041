@@ -1,0 +1,6 @@
+package maze.findway;
+
+public interface IFindWay {
+	
+	public void
+}

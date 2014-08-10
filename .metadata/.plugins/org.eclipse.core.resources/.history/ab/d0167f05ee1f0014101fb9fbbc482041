@@ -1,0 +1,8 @@
+package maze.utils;
+
+public class DefinesTest extends junit.framework.TestCase {
+
+	public void testCreate(){
+		assertEquals(8, Defines.searchDirection);
+	}
+}

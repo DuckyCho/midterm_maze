@@ -1,0 +1,26 @@
+package maze.main;
+
+import maze.findway.FindWayDuo;
+import maze.findway.FindWaySolo;
+import maze.findway.IFindWay;
+import maze.utils.Defines;
+
+public class MazeMain {
+
+	public static void main(String[] args) {
+		
+		System.out.println(Defines.theNumberOfFinder);
+		IFindWay f1 = new FindWaySolo();
+		
+		
+		f1.startFindWay();
+		f1.printWay();
+		
+		
+		IFindWay f2 = new FindWayDuo();
+		f2.startFindWay();
+		
+
+	}
+
+}

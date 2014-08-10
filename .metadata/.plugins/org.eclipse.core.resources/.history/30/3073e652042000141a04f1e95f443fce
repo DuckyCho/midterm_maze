@@ -1,0 +1,20 @@
+package maze.finder;
+
+import java.io.IOException;
+
+import maze.maze.Maze;
+import maze.utils.Defines;
+
+public class FinderTest extends junit.framework.TestCase {
+
+	public void testCreate(){
+		try {
+			Defines.setSearchDirection();
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}
+		Finder f1 = new Finder(Defines.inorder,Maze.getMazeEntrance(),Maze.getMazeExit());
+		f1.startFindWay();
+	}
+}

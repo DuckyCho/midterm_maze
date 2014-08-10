@@ -1,0 +1,21 @@
+package maze.maze;
+
+public class CoordinateWithDirections extends Coordinate{
+	
+	public int Direction;
+	
+	public CoordinateWithDirections(int X, int Y, int Direction){
+		super.X = X;
+		super.Y = Y;
+		this.Direction = Direction;
+	}
+	
+	public int getDirection(){
+		return this.Direction;
+	}
+	
+	public void setDirection(int Direction){
+		this.Direction = Direction;
+	}
+
+}

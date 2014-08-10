@@ -1,0 +1,20 @@
+package maze.findway;
+
+public class FindWaySolo implements IFindWay {
+	
+	//싱글 쓰레드로 미로찾기
+	//Finder를 한명만 생
+	
+	@Override
+	public void startFindWay() {
+		
+		
+	}
+
+	@Override
+	public void printWay() {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

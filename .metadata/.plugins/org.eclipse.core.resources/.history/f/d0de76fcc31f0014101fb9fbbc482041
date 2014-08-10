@@ -1,0 +1,62 @@
+package maze.maze;
+
+import java.util.ArrayList;
+
+import maze.utils.Defines;
+
+public class Maze {
+	private int[][] maze;
+	private Coordinate entrance;
+	private Coordinate exit;
+	
+	public Maze(){
+		maze = new int[Defines.basicMazeSize][Defines.basicMazeSize];
+		for(int i = 0 ; i < Defines.basicMazeSize ; i++){
+			for(int j = 0 ; j< Defines.basicMazeSize ; j++){
+				maze[i][j] = Defines.empty;;
+			}
+		}
+		
+		entrance = new Coordinate(0,0);
+		exit = new Coordinate(Defines.basicMazeSize-1,Defines.basicMazeSize-1);
+		
+	}
+	
+	
+	public Maze(int width){
+		maze = new int[width][width];
+		
+		for(int i = 0 ; i < width ; i++){
+			for(int j = 0 ; j< width ; j++){
+				maze[i][j] = Defines.empty;
+			}
+		}
+	}
+	
+	
+	public Maze(boolean setPreset){
+		maze = new int[Defines.basicMazeSize][Defines.basicMazeSize];
+		
+		if(setPreset == true){	
+			for(int i = 0 ; i < Defines.basicMazeSize ; i++){
+				for(int j = 0 ; j< Defines.basicMazeSize ; j++){
+					maze[i][j] = Defines.wallPreset[i][j];
+				}
+			}
+		}
+		
+		else{
+			for(int i = 0 ; i < Defines.basicMazeSize ; i++){
+				for(int j = 0 ; j< Defines.basicMazeSize ; j++){
+					maze[i][j] = Defines.empty;
+				}
+			}
+		}
+	}
+	
+	public Coordinate getMazeEntrance(){
+		 return this.entrance;
+	}
+}	
+
+

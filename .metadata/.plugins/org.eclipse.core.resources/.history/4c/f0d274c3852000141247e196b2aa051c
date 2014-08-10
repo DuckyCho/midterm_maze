@@ -1,0 +1,11 @@
+package maze.findway;
+
+public class FindWaySoloTest extends junit.framework.TestCase {
+
+	public void testCreate(){
+		FindWaySolo f1 = FindWaySolo.getInstance();
+		
+		f1.startFindWay();
+		f1.printWay();
+	}
+}

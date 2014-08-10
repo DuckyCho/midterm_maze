@@ -1,0 +1,18 @@
+package maze.main;
+
+import maze.findway.FindWayDuo;
+import maze.findway.FindWaySolo;
+import maze.findway.IFindWay;
+
+public class MazeMain {
+
+	public static void main(String[] args) {
+		IFindWay f1 = new FindWaySolo();
+		FindWayDuo f2 = new FindWayDuo();
+		
+		Thread t1 = new Thread(f2,"f2");
+		t1.start();
+		f2.printWay();
+	}
+
+}

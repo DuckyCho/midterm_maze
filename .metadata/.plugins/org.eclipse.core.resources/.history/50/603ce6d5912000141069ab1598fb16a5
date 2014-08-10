@@ -1,0 +1,68 @@
+package maze.findway;
+
+import java.io.IOException;
+
+import maze.finder.Finder;
+import maze.maze.Maze;
+import maze.utils.Defines;
+
+public class FindWayDuo implements IFindWay /*, Runnable*/{
+	
+	
+	private Finder finderDuo_1;
+	private Finder finderDuo_2;
+
+	
+	public FindWayDuo(){
+		try {
+			Defines.setSearchDirection();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		finderDuo_1 = new Finder(Defines.inorder,Maze.getMazeEntrance(),Maze.getMazeExit());
+		finderDuo_2 = new Finder(Defines.inverse,Maze.getMazeExit(),Maze.getMazeEntrance());
+		
+	}
+	
+	
+	
+	@Override
+	public void startFindWay() {
+		
+		Runnable f1 = finderDuo_1;
+		Runnable f2 = finderDuo_2;
+		
+		Thread threadNo1 = new Thread(f1,"Finder 01");
+		Thread threadNo2 = new Thread(f2,"Finder 02");
+		
+		threadNo1.start();
+		threadNo2.start();
+		
+	}
+
+	@Override
+	public void printWay() {
+		Finder f1 = (Finder)finderDuo_1;
+		Finder f2 = (Finder)finderDuo_2;
+	
+		while(f2.fHistory.top > 0){
+			System.out.println(f2.fHistory.popLocation());
+		}
+		
+		while(f1.fHistory.top > 0)
+			System.out.println(f1.fHistory.popLocation());
+
+	}
+
+
+/*
+	@Override
+	public void run() {
+		this.startFindWay();
+		this.printWay();
+		this.notifyAll();
+		
+	}
+*/
+}

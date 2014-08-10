@@ -1,0 +1,18 @@
+package maze.utils;
+
+import java.io.IOException;
+
+public class DefinesTest extends junit.framework.TestCase {
+
+	public void testCreate(){
+		String a;
+		try {
+			a = new String(Defines.setSearchDirection());
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	
+		assertEquals("8",a );
+	}
+}

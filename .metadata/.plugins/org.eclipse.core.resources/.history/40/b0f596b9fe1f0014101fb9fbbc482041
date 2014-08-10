@@ -1,0 +1,19 @@
+package maze.maze;
+
+import maze.utils.Coordinate;
+import maze.utils.Defines;
+
+public class MazeTest extends junit.framework.TestCase{
+
+	public void testCreate(){
+		Maze m1 = Maze.getInstance();
+		
+		for(int i = 0 ; i < Defines.basicMazeSize; i++){
+			for(int j = 0 ;j < Defines.basicMazeSize;j++){
+				System.out.print(String.format("%d\t",Maze.getMazeLocationInfo(new Coordinate(i,j))));
+				System.out.println(0;)
+			}
+		}
+		
+	}
+}

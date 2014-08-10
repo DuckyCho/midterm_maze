@@ -1,0 +1,25 @@
+package maze.finder;
+
+import maze.maze.Coordinate;
+import maze.maze.CoordinateWithDirections;
+import maze.utils.Defines;
+
+
+public class FinderHistoryTest extends junit.framework.TestCase {
+
+	public void createTest(){
+		FinderHistory h1 = new FinderHistory();
+		Coordinate c1 = new Coordinate(0,0);
+		Coordinate c2 = new Coordinate(1,1);
+		Coordinate c3 = new Coordinate(3,3);
+		Coordinate c4 = new CoordinateWithDirections(4, 4, Defines.WN);
+		h1.pushLocation(c1);
+		h1.pushLocation(c2);
+		h1.pushLocation(c3);
+		
+		c4 = h1.popPreviousLocation();
+		assertEquals(3,c4.getX());
+		assertEquals(3,c4.getY());
+		
+	}
+}

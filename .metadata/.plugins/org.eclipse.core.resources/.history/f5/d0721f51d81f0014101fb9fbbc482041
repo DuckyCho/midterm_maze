@@ -1,0 +1,26 @@
+package maze.maze;
+
+public class CoordinateWithDirections extends Coordinate{
+	
+	private int Direction;
+	
+	public CoordinateWithDirections(int X, int Y, int Direction){
+		super.setX(X);
+		super.setY(Y);
+		this.Direction = Direction;
+	}
+	
+	public int getDirection(){
+		return this.Direction;
+	}
+	
+	public void setDirection(int Direction){
+		this.Direction = Direction;
+	}
+	
+	public CoordinateWithDirections clone() {
+		CoordinateWithDirections cloned = new CoordinateWithDirections(this.getX(),this.getY(),this.Direction);
+		return cloned;
+	}
+
+}

@@ -1,0 +1,8 @@
+package maze.maze;
+
+public class MazeTest extends junit.framework.TestCase{
+
+	public void testCreate(){
+		Maze m1 = Maze.getInstance();
+	}
+}

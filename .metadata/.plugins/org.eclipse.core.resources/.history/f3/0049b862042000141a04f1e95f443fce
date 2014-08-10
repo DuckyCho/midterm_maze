@@ -1,0 +1,15 @@
+package maze.finder;
+
+
+
+import maze.maze.Maze;
+import maze.utils.Defines;
+
+public class FinderTest extends junit.framework.TestCase {
+
+	public void testCreate(){
+		
+		Finder f1 = new Finder(Defines.inorder,Maze.getMazeEntrance(),Maze.getMazeExit());
+		f1.startFindWay();
+	}
+}

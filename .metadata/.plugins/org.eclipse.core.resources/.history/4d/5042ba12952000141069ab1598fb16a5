@@ -1,0 +1,50 @@
+package maze.finder;
+
+import java.util.ArrayList;
+
+import maze.utils.CoordinateWithDirections;
+
+
+
+public class FinderHistory {
+	public int stackInputCount = 0;
+	public int top = 0;
+	public ArrayList<CoordinateWithDirections> alreadyVisited;
+	
+	public FinderHistory(){
+		top = 0;
+		alreadyVisited = new ArrayList<CoordinateWithDirections>();
+	}
+	
+	
+	public void pushLocation(CoordinateWithDirections visited){
+			alreadyVisited.add(visited);
+			top++;
+			stackInputCount++;
+	}
+	
+	
+	public CoordinateWithDirections popLocation(){
+		CoordinateWithDirections previousLocation;
+		System.out.println(top);
+		if(this.isEmpty()){
+			previousLocation = null;
+		}
+		else{
+			top = top-1;
+			previousLocation = this.alreadyVisited.get(top).clone();
+			alreadyVisited.remove(top);
+		}
+		
+		return previousLocation;
+	}
+	
+	public CoordinateWithDirections getStackElement(int idx){
+		return this.alreadyVisited.get(idx).clone();
+	}
+	
+	public boolean isEmpty(){
+		return this.alreadyVisited.isEmpty();
+	}
+
+}
