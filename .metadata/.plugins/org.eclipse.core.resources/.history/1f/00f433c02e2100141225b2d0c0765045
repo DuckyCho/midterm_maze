@@ -1,0 +1,113 @@
+package maze.finder;
+
+import maze.maze.Maze;
+import maze.utils.Coordinate;
+import maze.utils.CoordinateWithDirections;
+import maze.utils.Defines;
+
+public class Finder implements Runnable{
+
+	public static int finderIdConstructor = Defines.finderIdConstructor;
+	public FinderHistory fHistory;
+	public int visitOrder;
+	public int finderId;
+	public Coordinate startPos;
+	public Coordinate endPos;
+	long startTime;
+	
+	
+	//Finder는 길을 찾는 역할. fHistory에서 여태까지 갔던길을 stack으로 관리한다. visitorder는 시계방향으로 탐색할지,  시계반대방향으로 길을 탐색할지 결정한다.
+	//FinderId는 쓰레드로 두명돌릴때 둘이 가본곳을 구별할때 사용한다. startpos는 이 finder가 길찾기 탐색을 시작할 위치, endpos는 maze의 출
+	public Finder(int visitOrder, Coordinate startPos, Coordinate endPos){
+		this.fHistory = new FinderHistory();
+		this.visitOrder = visitOrder;
+		this.finderId = Finder.finderIdConstructor++;
+		this.startPos = startPos;
+		this.endPos = endPos;
+		
+	}
+	
+	
+	
+	public void startFindWay(){
+		startTime = System.currentTimeMillis();
+		Coordinate currentPos = this.startPos.clone();
+		Coordinate nextPos = null;
+		CoordinateWithDirections tmp;
+		int nextDirection;
+		
+		do {
+			
+			nextDirection = Defines.N+visitOrder;
+			
+			
+			while(nextDirection-visitOrder <= Defines.searchDirection){
+
+				Maze.setMazeLocationInfo(currentPos, this.finderId);
+				nextPos = currentPos.addCoordinate(Defines.movePos.get(nextDirection));
+	
+				//움직일 다음 좌표의 값이 벽보다 큰 값이면서(1보다 큰 값이면서), finder의 ID가 아닐때는 다른 쓰레드에 의해 찾아진 길이므로 break;  
+				if(Maze.getMazeLocationInfo(nextPos) > Defines.wall && Maze.getMazeLocationInfo(nextPos)!= this.finderId)
+					break;
+				
+				
+				else{
+					//다음 움직일 방향의 값이 searchDirection(4방향 탐색의 경우 4, 8방향 탐색의 경우 8)과 같을 경우, 그 좌표에 탐색이 끝난것이므로 이전위치로 되돌아 가야한다.
+					//따라서 위치를 pop하여 이전의 장소를 currentPos로 변경해야함
+					if (nextDirection-visitOrder == Defines.searchDirection) {
+						tmp = fHistory.popLocation();
+						while(tmp.getDirection() == Defines.searchDirection)
+							tmp = fHistory.popLocation();
+					
+						Maze.setMazeLocationInfo(currentPos, Defines.empty);
+						currentPos = new Coordinate(tmp);
+						nextDirection = tmp.getDirection()+visitOrder;
+					}
+					
+					//�떎�쓬 ��吏곸씪 醫뚰몴媛� valid�븯硫댁꽌(0 <= X醫뚰몴, Y醫뚰몴 < 8), 鍮꾩뼱�엳�뒗 寃쎌슦(0�씪 寃쎌슦)�뿉�뒗 �쁽�옱�쐞移섎�� �뫖�돩�븯怨�, �떎�쓬 醫뚰몴濡� �씠�룞�븯怨� �씠諛섎났臾� break;
+					else if(Maze.isValidLocation(nextPos) && Maze.getMazeLocationInfo(nextPos) == Defines.empty){
+						fHistory.pushLocation(Coordinate.toCoordianteWithDirections(currentPos,++nextDirection));
+						currentPos = new Coordinate(nextPos);
+						break;
+					}
+					
+					//�쐞�뿉以� �뼱�뼚�븳 寃껋뿉�룄 �빐�떦�븯吏� �븡�뒗 寃쎌슦�뒗 �떎�쓬 諛⑺뼢�쑝濡� �깘�깋�쓣 �븯�뒗 寃껋씠誘�濡� nextDirection�쓽 媛믪쓣 1利�
+					else{
+						nextDirection++;
+					}
+		
+				}
+			}
+				
+		//�쐞�쓽 諛섎났臾몄쓣 異쒓뎄瑜� 李얘굅�굹, �떎瑜� �벐�젅�뱶媛� 寃��깋�븳 怨녹뿉 �룄�떖�븷 �븣源뚯� 諛� 
+		//while議곌굔�쓣 泥댄겕�븯�뒗 �떆�젏�뿉�꽌 nextPos�� currentPos�뒗 媛숇떎. 
+		}while(!nextPos.equals(Maze.getMazeExit()) && !(Maze.getMazeLocationInfo(nextPos) > Defines.wall && Maze.getMazeLocationInfo(nextPos)!= this.finderId) );
+			
+		fHistory.pushLocation(Coordinate.toCoordianteWithDirections(currentPos,++nextDirection));
+		
+	}
+	
+	
+
+	@Override
+	public String toString() {
+		StringBuilder finderInfo = new StringBuilder();
+		finderInfo.append(String.format("ThreadName : %s\nStartTime : %s\nOperationTime : %s\nTotalNumsOfStackPushed : %s\n",Thread.currentThread().getName(), Long.toString(startTime),	(System.currentTimeMillis()-startTime), Integer.toString(this.fHistory.stackInputCount)));
+		
+		return finderInfo.toString();
+		
+		
+	}
+
+
+
+	@Override
+	public void run() {
+		this.startFindWay();
+		System.out.println(this);
+	}
+	
+	
+
+	
+}

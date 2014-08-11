@@ -1,0 +1,77 @@
+package maze.findway;
+
+import java.util.ArrayList;
+
+import maze.finder.Finder;
+import maze.maze.Maze;
+import maze.utils.Coordinate;
+import maze.utils.Defines;
+
+public class FindWayDuo implements IFindWay {
+	//쓰레드를 두개 생성하여 미로찾기
+	//Finder를 두명 생성
+	
+	private static Finder finderDuo_1;
+	private static Finder finderDuo_2;
+	public long startTime;
+	
+	//Constructor
+	public FindWayDuo(){
+		System.out.println();		
+		finderDuo_1 = new Finder(Defines.inorder,Maze.getMazeEntrance(),Maze.getMazeExit());
+		finderDuo_2 = new Finder(Defines.inverse,Maze.getMazeExit(),Maze.getMazeEntrance());
+	}
+		
+	
+	@Override
+	public void startFindWay() {
+		startTime = System.currentTimeMillis();
+		System.out.println("****Find way by using two Finders****");
+		
+		Runnable f1 = finderDuo_1;
+		Runnable f2 = finderDuo_2;
+		
+		Thread threadNo1 = new Thread(f1,"Finder 01");
+		Thread threadNo2 = new Thread(f2,"Finder 02");
+		
+		threadNo1.start();
+		threadNo2.start();
+		
+		try {
+			threadNo1.join();
+			threadNo2.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println(this);
+		this.printWay();
+		
+		
+	}
+
+
+	@Override
+	public void printWay() {
+		ArrayList<Coordinate> finderWay = new ArrayList<Coordinate>();
+		
+		while(finderDuo_1.fHistory.top > 0 )
+			finderWay.add(finderDuo_1.fHistory.popLocation());
+	
+		
+		for(int i = finderWay.size()-1 ; i >= 0 ; i--)
+			System.out.println(finderWay.get(i));
+		while(finderDuo_2.fHistory.top > 0 )
+			System.out.println(finderDuo_2.fHistory.popLocation());
+		}		
+
+	
+	@Override
+	public String toString(){
+		StringBuilder findWayduoInfo = new StringBuilder();
+		findWayduoInfo.append(String.format("\t%s\n\tstartTime : %s\n\toperationTime : %s\n","!!FindWaySoloTotalTimeReport!!",new Long(this.startTime).toString(), new Long( System.currentTimeMillis()-this.startTime)).toString());
+		
+		return findWayduoInfo.toString();
+	}
+	
+}

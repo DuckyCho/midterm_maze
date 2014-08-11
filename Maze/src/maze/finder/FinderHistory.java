@@ -1,10 +1,7 @@
 package maze.finder;
 
 import java.util.ArrayList;
-
 import maze.utils.CoordinateWithDirections;
-
-
 
 public class FinderHistory {
 	public int stackInputCount = 0;

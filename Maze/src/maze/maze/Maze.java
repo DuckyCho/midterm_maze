@@ -4,7 +4,7 @@ import maze.utils.Coordinate;
 import maze.utils.Defines;
 
 //Singleton maze
-//int�삎 2李⑥썝 諛곗뿴 maze�� �엯援�,異쒓뎄 �젙蹂대�� 媛�吏�怨좎엳�떎.
+//int형 2차원 배열 maze와 입구,출구 정보를 가지고있다.
 
 public class Maze {
 	private static int[][] maze;
@@ -32,7 +32,7 @@ public class Maze {
 	}
 	
 	
-	//醫뚰몴媛믪쓣 �씤�옄濡� 諛쏆븘 洹� �쐞移섏쓽 媛믪쓣 get�븯嫄곕굹 set
+	////좌표값을 인자로 받아 그 위치의 값을 get하거나 set
 	public static int getMazeLocationInfo(Coordinate location){
 		int result;
 		if(Maze.isValidLocation(location))
@@ -56,7 +56,7 @@ public class Maze {
 	}
 	
 	
-	//醫뚰몴媛믪씠 valid�븳 吏��뿭�씤吏� 泥댄겕�븯�뿬 boolean媛믪쓣 return
+	//좌표값이 valid한 지역인지 체크하여 boolean값을 return
 	public static boolean isValidLocation(Coordinate location){
 		boolean result;
 		
@@ -68,6 +68,7 @@ public class Maze {
 		return result;
 	}
 	
+	//Maze를 출력
 	public static void printMaze(){
 		for(int i = 0 ; i <Defines.basicMazeSize ; i++){
 			for(int j = 0 ;j <Defines.basicMazeSize; j++){
@@ -77,6 +78,7 @@ public class Maze {
 		}
 	}
 	
+	//Maze를 reset
 	public static void resetMaze(){
 		for(int i = 0 ; i < Defines.basicMazeSize ; i++){
 			for(int j = 0 ; j< Defines.basicMazeSize ; j++){

@@ -29,6 +29,7 @@ public class MazeMain {
 			}
 			
 			else{
+				
 				if(Defines.theNumberOfFinder == 1){
 					f1 = new FindWaySolo();
 					f1.startFindWay();

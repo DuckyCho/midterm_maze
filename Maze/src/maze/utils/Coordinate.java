@@ -1,8 +1,8 @@
 package maze.utils;
 
-//醫뚰몴 �겢�옒�뒪
-//X媛믨낵 Y媛믪쓣 媛�吏�
-//X媛믪� �뿴�쓣 �쑜�븯怨�, Y媛믪� �뻾�쓣 �쑜�븳�떎.
+//좌표 클래스
+//X값과 Y값을 가짐
+//X값은 열을 뜻하고, Y값은 행을 뜻한다.
 public class Coordinate {
 	
 	private int X;
@@ -45,7 +45,7 @@ public class Coordinate {
 	
 	
 	
-	//toCoordinateWithDirections : Coordinate�겢�옒�뒪瑜� CoordinateWithDirections�겢�옒�뒪濡� 蹂�寃쏀빐
+	//toCoordinateWithDirections : Coordinate클래스를 CoordinateWithDirections클래스로 변경해 return한다.
 	public static CoordinateWithDirections toCoordianteWithDirections(Coordinate c1){
 		CoordinateWithDirections transfer = new CoordinateWithDirections(c1.getX(),c1.getY(),Defines.N);
 		
@@ -59,21 +59,22 @@ public class Coordinate {
 	}
 	
 	
-	//Coordinate�겮由ъ쓽 �뿰�궛�쓣 �젙�쓽�븳 硫붿룜�뱶. Coordinate�몮�쓣 �뜑�븯硫� X醫뚰몴�겮由� Y醫뚰몴�겮由� �뜑�빐�꽌 return �빐以��떎.
-	//Finder媛� nextPos瑜� currentPos�� nextDirection�쓣 addCoordinate �뿰�궛�쑝濡� �젙�븿
+	
+	//Coordinate끼리의 연산을 정의한 메쏘드. Coordinate둘을 더하면 X좌표끼리 Y좌표끼리 더해서 return 해준다.
+	//Finder가 nextPos를 currentPos와 nextDirection을 addCoordinate 연산으로 정함
 	public Coordinate addCoordinate(Coordinate c1){
 		Coordinate addResult = new Coordinate(this.getX()+c1.getX(),this.getY()+c1.getY());
 		return addResult;
 	}
 
-	//Coordinate瑜� clone
+	//Coordinate clone
 	public Coordinate clone() {
 		Coordinate cloned = new Coordinate(this.X,this.Y);
 		return cloned;
 	}
 
 	
-	//Coordinate瑜� print�븯硫� X媛믨낵 Y媛믪쓣 異�
+	//Coordinate를 print하면 X, Y 좌표 값을 출력
 	@Override
 	public String toString() {
 		StringBuilder coordinate = new StringBuilder();

@@ -58,8 +58,9 @@ public class Defines {
 	}
 	
 	
-	//searchDirection�뙆�씪�쓣 �씫�뼱�뱾�뿬 property瑜� �꽕�젙
-	//invsere, searchDirection, movePos�뼱�젅�씠瑜� �꽕�젙媛믪뿉 �뵲�씪 蹂�寃�
+
+	//Properties파일을 읽어들여 property를 설정
+	//theNumberOfFinder, operationComparisonMode, invsere, searchDirection, movePos어레이를 설정값에 따라 변경
 	private static void setProperties() throws IOException{
 				
 		Properties props = new Properties();

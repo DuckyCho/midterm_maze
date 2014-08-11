@@ -1,30 +1,33 @@
 package maze.findway;
 
 import java.util.ArrayList;
+
 import maze.finder.Finder;
 import maze.maze.Maze;
 import maze.utils.Coordinate;
 import maze.utils.Defines;
 
 public class FindWayDuo implements IFindWay {
-	
+	//쓰레드를 두개 생성하여 미로찾기
+	//Finder를 두명 생성
 	
 	private static Finder finderDuo_1;
 	private static Finder finderDuo_2;
-
+	public long startTime;
 	
+	//Constructor
 	public FindWayDuo(){
-		System.out.println();		
+		System.out.println();	//리포트를 위한 한줄 띄우기	
 		finderDuo_1 = new Finder(Defines.inorder,Maze.getMazeEntrance(),Maze.getMazeExit());
 		finderDuo_2 = new Finder(Defines.inverse,Maze.getMazeExit(),Maze.getMazeEntrance());
-		
 	}
-	
-	
+		
 	
 	@Override
 	public void startFindWay() {
+		startTime = System.currentTimeMillis(); //stratFindWay가 시작되는 순간부터 시간쟤서 리포트
 		System.out.println("****Find way by using two Finders****");
+		
 		Runnable f1 = finderDuo_1;
 		Runnable f2 = finderDuo_2;
 		
@@ -40,8 +43,13 @@ public class FindWayDuo implements IFindWay {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		printWay();
+		
+		System.out.println(this);
+		this.printWay();
+		
+		
 	}
+
 
 	@Override
 	public void printWay() {
@@ -57,4 +65,13 @@ public class FindWayDuo implements IFindWay {
 			System.out.println(finderDuo_2.fHistory.popLocation());
 		}		
 
+	
+	@Override
+	public String toString(){
+		StringBuilder findWayduoInfo = new StringBuilder();
+		findWayduoInfo.append(String.format("\t%s\n\tstartTime : %s\n\toperationTime : %s\n","!!FindWaySoloTotalTimeReport!!",new Long(this.startTime).toString(), new Long( System.currentTimeMillis()-this.startTime)).toString());
+		
+		return findWayduoInfo.toString();
+	}
+	
 }

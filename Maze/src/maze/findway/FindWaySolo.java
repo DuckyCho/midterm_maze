@@ -8,25 +8,32 @@ import maze.utils.Coordinate;
 import maze.utils.Defines;
 
 public class FindWaySolo implements IFindWay {
-	//�떛湲� �벐�젅�뱶濡� 誘몃줈李얘린
-	//Finder瑜� �븳紐낅쭔 �깮�꽦
+	//싱글 쓰레드로 미로찾기
+	//Finder를 한명만 생성
 	
 	public Finder finderSolo;
-
+	public long startTime;
 	
+	//Constructor
 	public FindWaySolo(){
-
+		System.out.println(); //리포트를 위한 한줄 띄우기
 		finderSolo = new Finder(Defines.inorder,Maze.getMazeEntrance(),Maze.getMazeExit());
-		
 	}
+	
+	
 	
 	@Override
 	public void startFindWay() {
+		startTime = System.currentTimeMillis(); //stratFindWay가 시작되는 순간부터 시간쟤서 리포트
 		System.out.println("****Find way by using one Finder****");
+		
 		finderSolo.run();
+		
+		System.out.println(this);
 		this.printWay();
 	}
 
+	
 	@Override
 	public void printWay() {
 		ArrayList<Coordinate> finderWay = new ArrayList<Coordinate>();
@@ -39,6 +46,14 @@ public class FindWaySolo implements IFindWay {
 			System.out.println(finderWay.get(i));
 	}
 	
+	
+	@Override
+	public String toString(){
+		StringBuilder findWayduoInfo = new StringBuilder();
+		findWayduoInfo.append(String.format("\t%s\n\tstartTime : %s\n\toperationTime : %s\n","!!FindWaySoloTotalTimeReport!!",new Long(this.startTime).toString(), new Long( System.currentTimeMillis()-this.startTime)).toString());
+		
+		return findWayduoInfo.toString();
+	}
 	
 
 }
